@@ -1,0 +1,25 @@
+{
+    "name": "palindrome-app",
+    "version": "0.0.1",
+    "description": "Web server to store messages and detect palindromes",
+    "author": "William Clifford <willclifford2817@gmail.com",
+    "contributors": [
+        {
+            "name": "William Clifford",
+            "email": "willclifford2817@gmail.com"
+        }
+    ],
+    "repository": {
+        "type": "git",
+        "url": ""
+    },
+    "main": "server.js",
+    "dependencies": {
+        "body-parser": "*",
+        "express": "*",
+        "method-override": "*",
+        "mongoose": "*",
+        "morgan": "*"
+    },
+    "license": "MIT"
+}
