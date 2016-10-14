@@ -19,17 +19,43 @@ module.exports = function (app) {
 	// get all messages
 	app.get('/api/messages', getMessageResponse);
 
+	// get message by id
+	app.get('/api/messages/:message_id',function(req,res){
+		MessageService.getMessage(req.params.message_id,function(err,message){
+			if (err) {
+				res.sendStatus(500);
+			}
+			else if (!message) {
+				res.status(404).send("Message cannot be found.");
+			}
+			res.json(message)
+		})
+	});
+
 	// create a message and send back all messages after creation
 	app.post('/api/messages', function (req, res) {
 		// create a message, information comes from AJAX request from Angular
-        MessageService.createMessage(req.body.text, function (err, message) {
+		if (req.body.text) {
+			MessageService.createMessage(req.body.text, function (err, message) {
+				if (err) {
+					res.send(err);
+				}
+				getMessageResponse(req, res);
+			});
+		}
+		else {
+			res.status(400).send("Message cannot be empty.");
+		}
+
+	});
+
+	app.post('api/messages/:message_id',function(req,res){
+		MessageService.updateMessage(req.params.message_id,req.params.text,function(err,message){
 			if (err) {
 				res.send(err);
 			}
-
-            getMessageResponse(req, res);
-		});
-
+			getMessageResponse(req, res);
+		})
 	});
 
 	// delete a message

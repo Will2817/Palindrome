@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 
 module.exports = mongoose.model('Message', {
-    text: String
+    text: String,
+    isPalindrome: Boolean
 });
