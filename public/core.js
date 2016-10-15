@@ -15,13 +15,15 @@ function mainController($scope, $http) {
     // when submitting the add form, send the text to the node API
     $scope.createMessage = function () {
         $http.post('/api/messages', $scope.formData)
-            .success(function (data) {
+            .then(function (response) {
                 $scope.formData = {}; // clear the form so our user is ready to enter another
-                $scope.messages = data;
+                $scope.messages = response.data;
                 console.log(data);
-            })
-            .error(function (data) {
-                console.log('Error: ' + data);
+            },function (response) {
+                if (response.status === 400){
+                    $scope.formData.error = response.data;
+                }
+                console.log('Error: ' + response);
             });
     };
 
@@ -36,4 +38,23 @@ function mainController($scope, $http) {
             });
     };
 
+    $scope.getMessage = function(id) {
+        $http.get('/api/messages/'+id)
+            .success(function (data) {
+                $scope.selectedMessage = data;
+            })
+            .error(function (data) {
+                console.log('Error: ' + data);
+            });
+    };
+
+    $scope.saveMessage = function (message) {
+        $http.post('/api/messages/' + message._id,message)
+            .success(function (data) {
+                $scope.messages = data;
+            })
+            .error(function (data) {
+                console.log('Error: ' + data);
+            });
+    };
 }

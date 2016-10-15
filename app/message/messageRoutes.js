@@ -49,8 +49,8 @@ module.exports = function (app) {
 
 	});
 
-	app.post('api/messages/:message_id',function(req,res){
-		MessageService.updateMessage(req.params.message_id,req.params.text,function(err,message){
+	app.post('/api/messages/:message_id',function(req,res){
+		MessageService.updateMessage(req.params.message_id,req.body.text,function(err,message){
 			if (err) {
 				res.send(err);
 			}

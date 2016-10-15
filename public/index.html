@@ -30,10 +30,16 @@
         #message-form {
             margin-bottom: 50px;
         }
+        
+        .clickable {
+            cursor: pointer;
+        }
     </style>
 
     <!-- SPELLS -->
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- load angular -->
     <script src="core.js"></script>
 
@@ -45,36 +51,62 @@
 
         <!-- HEADER AND MESSAGE COUNT -->
         <div class="jumbotron text-center">
-            <h1>Number of Messages <span class="label label-info">{{ messages.length }}</span></h1>
-        </div>
-
-        <!-- MESSAGE LIST -->
-        <div id="message-list" class="row">
-            <div class="col-sm-4 col-sm-offset-4">
-
-                <!-- LOOP OVER THE MESSAGES IN $scope.messages -->
-                <div class="checkbox" ng-repeat="message in messages">
-                    <label>
-						<input type="checkbox" ng-click="deleteMessage(message._id)"> {{ message.text }}
-					</label>
-                </div>
-
-            </div>
+            <h1>Palindrome Tester</h1>
         </div>
 
         <!-- FORM TO CREATE MESSAGES -->
         <div id="message-form" class="row">
-            <div class="col-sm-8 col-sm-offset-2 text-center">
-                <form>
-                    <div class="form-group">
-
+            <div class="text-center">
+                <form class="form-inline">
+                    <div ng-class="{'form-group' : true, 'has-error has-feedback' : formData.error }">
+                        <p class="form-control-feedback pull-left help-block"> {{formData.error}} </p>
                         <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
                         <input type="text" class="form-control input-lg text-center" placeholder="Add your message here..." ng-model="formData.text">
-                    </div>
 
+                    </div>
                     <!-- createMessage() WILL CREATE NEW MESSAGES -->
-                    <button type="submit" class="btn btn-primary btn-lg" ng-click="createMessage()">Add</button>
+                    <button type="submit" class="btn btn-primary btn-lg" ng-click="createMessage()">
+                        <span class="glyphicon glyphicon-plus"></span> Add</button>
                 </form>
+            </div>
+        </div>
+
+        <!-- MESSAGE LIST -->
+        <table class="table table-hover">
+            <tr>
+                <th>Message</th>
+                <th width="50">Palindrome</th>
+            </tr>
+            <tr ng-repeat="message in messages">
+                <td class="clickable" data-toggle="modal" data-target="#myModal" ng-click="getMessage(message._id)">{{ message.text }}</td>
+                <td>
+                    <span ng-if="message.isPalindrome" class="text-success glyphicon glyphicon-ok"></span>
+                    <span ng-if="!message.isPalindrome" class="text-danger glyphicon glyphicon-remove"></span>
+                </td>
+
+            </tr>
+
+        </table>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">This message is{{selectedMessage.isPalindrome ? '' : ' not'}} a Palindrome</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" class="form-control input-lg text-center" ng-model="selectedMessage.text">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" ng-click="deleteMessage(message._id)">Delete</button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="saveMessage(selectedMessage)">Save</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
