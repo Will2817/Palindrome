@@ -1,7 +1,7 @@
 {
     "name": "palindrome-app",
-    "version": "0.0.1",
-    "description": "Web server to store messages and detect palindromes",
+    "version": "1.0.0",
+    "description": "Web server to store messages and test for palindromes",
     "author": "William Clifford <willclifford2817@gmail.com",
     "contributors": [
         {
@@ -11,9 +11,12 @@
     ],
     "repository": {
         "type": "git",
-        "url": ""
+        "url": "https://github.com/Will2817/Palindrome"
     },
     "main": "server.js",
+    "scripts": {
+        "apidoc": "apidoc -i app/ -o public/apidoc/"
+    },
     "dependencies": {
         "body-parser": "*",
         "express": "*",

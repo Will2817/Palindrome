@@ -19,8 +19,8 @@ function mainController($scope, $http) {
                 $scope.formData = {}; // clear the form so our user is ready to enter another
                 $scope.messages = response.data;
                 console.log(data);
-            },function (response) {
-                if (response.status === 400){
+            }, function (response) {
+                if (response.status === 400) {
                     $scope.formData.error = response.data;
                 }
                 console.log('Error: ' + response);
@@ -38,8 +38,8 @@ function mainController($scope, $http) {
             });
     };
 
-    $scope.getMessage = function(id) {
-        $http.get('/api/messages/'+id)
+    $scope.getMessage = function (id) {
+        $http.get('/api/messages/' + id)
             .success(function (data) {
                 $scope.selectedMessage = data;
             })
@@ -49,7 +49,7 @@ function mainController($scope, $http) {
     };
 
     $scope.saveMessage = function (message) {
-        $http.post('/api/messages/' + message._id,message)
+        $http.post('/api/messages/' + message._id, message)
             .success(function (data) {
                 $scope.messages = data;
             })

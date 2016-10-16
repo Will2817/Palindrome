@@ -1,0 +1,5 @@
+{
+  "name": "Palindrome",
+  "version": "1.0.0",
+  "description": "An api to store messages and test for palindromes"
+}
