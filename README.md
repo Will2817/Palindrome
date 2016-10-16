@@ -12,7 +12,7 @@ https://github.com/Will2817/Palindrome.git
 ```
 npm install
 ```
-###2\. Set environment varibales
+###2\. Set environment variables
 Examples
 ```
 MONGO_URL = "mongodb://localhost:27017" 
