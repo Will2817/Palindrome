@@ -77,8 +77,8 @@
                 <th>Message</th>
                 <th width="50">Palindrome</th>
             </tr>
-            <tr ng-repeat="message in messages">
-                <td class="clickable" data-toggle="modal" data-target="#myModal" ng-click="getMessage(message._id)">{{ message.text }}</td>
+            <tr class="clickable" data-toggle="modal" data-target="#myModal" ng-click="getMessage(message._id)" ng-repeat="message in messages">
+                <td>{{ message.text }}</td>
                 <td>
                     <span ng-if="message.isPalindrome" class="text-success glyphicon glyphicon-ok"></span>
                     <span ng-if="!message.isPalindrome" class="text-danger glyphicon glyphicon-remove"></span>
