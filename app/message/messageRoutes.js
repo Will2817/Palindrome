@@ -93,7 +93,7 @@ module.exports = function (app) {
 			else if (!message) {
 				res.status(404).send("Message cannot be found.");
 			}
-			else{
+			else {
 				res.json(message);
 			}
 		})

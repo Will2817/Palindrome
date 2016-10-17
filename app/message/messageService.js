@@ -21,8 +21,8 @@ exports.createMessage = function (message, callback) {
 //Update a message text by id
 exports.updateMessage = function (message_id, text, callback) {
     Message.findById(message_id, function (err, message) {
-        if (err) {
-            callback()
+        if (err || !message) {
+            callback();
         }
         else {
             message.text = text
@@ -34,14 +34,22 @@ exports.updateMessage = function (message_id, text, callback) {
 
 //Remore a message
 exports.removeMessage = function (message_id, callback) {
-    Message.remove({
-        _id: message_id
-    }, callback);
+    Message.findById(message_id, function (err, message) {
+        if (err || !message) {
+            callback();
+        }
+        else {
+            message.remove(callback);
+        }
+    });
 }
 
 //Check if a message is a palindrome
 exports.isPalindrome = function (message) {
     //Remove all special characters and lowercase remaining letters
+    if (!message) {
+        return false;
+    }
     var message = message.replace(/[^a-zA-Z]/g, "").toLowerCase();
     //Compare characters from the outside in
     for (i = 0; i < message.length / 2; i++) {

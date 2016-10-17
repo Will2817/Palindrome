@@ -6,8 +6,8 @@ var mongoose = require('mongoose');              // mongoose for mongodb
 var morgan = require('morgan');                  // log requests to the console (express4)
 var bodyParser = require('body-parser');         // pull information from HTML POST (express4)
 var methodOverride = require('method-override'); // simulate DELETE and PUT (express4)
-var dbURL = process.env.MONGO_URL+'/palindrome'; /*"mongodb://localhost:27017/palindrome";*/
-var PORT = process.env.APP_PORT;                 /*"8080";*/
+var dbURL = (process.env.MONGO_URL||'mongodb://localhost:27017')+'/palindrome';
+var PORT = (process.env.APP_PORT||3000);               
 
 var app      = express();                        // create our app w/ express
 // configuration =================
@@ -28,3 +28,5 @@ require('./app/message/messageRoutes.js')(app);
 // listen (start app with node server.js) ======================================
 app.listen(PORT);
 console.log("App listening on port "+PORT);
+
+module.exports = app;
